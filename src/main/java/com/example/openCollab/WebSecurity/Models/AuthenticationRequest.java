@@ -17,7 +17,5 @@ public class AuthenticationRequest {
 	public String username;
 	public String password;
 	public String email;
-	
-	@Nullable
-	public String role="User";
+
 }

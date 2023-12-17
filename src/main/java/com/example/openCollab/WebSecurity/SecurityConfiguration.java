@@ -51,7 +51,7 @@ public class SecurityConfiguration {
         		http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests()
-                .requestMatchers("home/**").permitAll()
+                .requestMatchers("sunbase/**").permitAll()
                 .requestMatchers("lock/**").hasAuthority("ADMIN") //only users with role admin can access
                 .anyRequest().authenticated()
                 .and()

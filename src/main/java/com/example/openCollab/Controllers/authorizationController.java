@@ -4,9 +4,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+//EXTRA FUNCTIONALITY ADDED--->(Role based url access) These api's are only accesisble by admin user type
 @RestController
 @RequestMapping("lock")
-public class test2 {
+public class authorizationController {
 	
 	@GetMapping("user")
 	public String print() {
