@@ -22,16 +22,26 @@ public class test {
 	private AuthenticateService service;
 	
 	@PostMapping("register")
-	public ResponseEntity<AuthenticationResponse> auth(
+	public ResponseEntity<AuthenticationResponse> register(
 			@RequestBody AuthenticationRequest request) {
 				return ResponseEntity.ok(service.register(request));
 
 	}
 	
 	@PostMapping("authenticate")
-	public ResponseEntity<AuthenticationResponse> auth(
+	public ResponseEntity<AuthenticationResponse> login(
 			@RequestBody RegisterRequest request) {
 		System.out.print("user --->"+ request.getEmail() +"  "+request.getPassword());
 				return ResponseEntity.ok(service.authenticate(request));
+	}
+	
+	@GetMapping("hello")
+	public ResponseEntity<String> greet() {
+				return ResponseEntity.ok("Hello from GreenStitch");
+	}
+	
+	@GetMapping("adminhello")
+	public ResponseEntity<String> AdminGreet() {
+				return ResponseEntity.ok("Role Based Authorization Example :)");
 	}
 }

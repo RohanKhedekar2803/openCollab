@@ -1,0 +1,25 @@
+package com.example.openCollab.Repositories;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.example.openCollab.Entities.User;
+
+
+@Repository
+public interface UserRepository extends JpaRepository<User, String>{
+
+	boolean findByEmail(String email);
+
+	boolean findByPhone(long phone);
+
+	User findByLogin_Id(String login_id);
+
+	
+
+	
+
+}

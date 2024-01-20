@@ -1,6 +1,7 @@
 package com.example.openCollab.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -35,9 +36,6 @@ public class AuthenticateService {
 	private JwtService jwtService;
 	
 	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
 	private UserRepository userrepository;
 	
 	
@@ -45,7 +43,8 @@ public class AuthenticateService {
 	
 	
 	public AuthenticationResponse register(AuthenticationRequest request) {
-		
+		//Here I have added role based authorization so created roles for user 
+		//create role
 		Role role;
 		if(request.getRole().equals("user") || request.getRole().equals("USER") || request.getRole().equals("User")) {
 			role=Role.USER;
@@ -53,14 +52,17 @@ public class AuthenticateService {
 			role=Role.ADMIN;
 		}
 		
-		User user = User.builder().email(request.getEmail())
+		User user= User.builder().email(request.getEmail())
 				.username(request.getUsername())
 				.password(request.getPassword())
 				.role(role)
 				.build();
 		
-		userrepository.save(user);
-		
+		//check if username and email are unique
+
+			userrepository.save(user);
+
+			
 		var jwtToken=jwtService.generateToken(user.getUsername());
 		
 		return AuthenticationResponse.builder().token(jwtToken).build();
@@ -69,6 +71,7 @@ public class AuthenticateService {
 	public AuthenticationResponse authenticate(RegisterRequest request) {
 		
 		User user =userrepository.findByUsername(request.getUsername());
+		
 		
 		if(!user.getPassword().equals(request.getPassword())) {
 			throw new BadCredentialsException("Invalid username or password");

@@ -2,6 +2,7 @@ package com.example.openCollab.Entities;
 
 import com.example.openCollab.WebSecurity.Models.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -25,8 +26,10 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	public Long id;
+	@Column(unique = true)
 	public String username;
 	public String password;
+	@Column(unique = true)
 	public String email;
 	
 	// by default enum ype is ordinal setting it to strinbg will take string value in it

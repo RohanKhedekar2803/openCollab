@@ -1,0 +1,41 @@
+package com.example.openCollab.Entities;
+
+import com.example.openCollab.WebSecurity.Models.Role;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long login_id;
+	public String first_name;
+	public String last_name;
+	public String street;
+	public String address;
+	public String city;
+	public String state;
+	public String email;
+	public String password;
+	public long phone;
+	
+	// by default enum ype is ordinal setting it to strinbg will take string value in it
+	@Enumerated(EnumType.STRING)
+	public Role role;
+}
