@@ -33,6 +33,7 @@ public class SecurityConfiguration {
 	// configures all security-related stuff
 	@SuppressWarnings({ "removal", "deprecation" })
 	@Bean
+<<<<<<< HEAD
 	public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
 		http.csrf(csrf -> csrf.disable())
@@ -50,4 +51,47 @@ public class SecurityConfiguration {
 
 
 
+=======
+    public SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+//        http.
+//        csrf()
+//        .disable()
+//        .authorizeHttpRequests(authorize -> authorize
+//                .requestMatchers("/home/admin").hasRole("ADMIN") //only users with role admin can access
+//                .requestMatchers("/home/user").hasRole("USER")
+//                .anyRequest().authenticated()
+//            ).           
+//            httpBasic(withDefaults());
+        
+        		http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests()
+                .requestMatchers("sunbase/**").permitAll()
+                .requestMatchers("lock/**").hasAuthority("ADMIN") //only users with role admin can access
+                .anyRequest().authenticated()
+                .and()
+                .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //as we are using jwt so make session policy statless
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        
+        return http.build();
+    }
+       
+    
+    @Bean
+    public DaoAuthenticationProvider authenticationProvider() {
+    	DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+    	daoAuthenticationProvider.setUserDetailsService(customUserDetails());
+    	daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
+    	return daoAuthenticationProvider;
+    }
+    
+    
+   
+    
+  
+    
+    //just override customeUserDetailsService for that create 
+    
+>>>>>>> f4a3a0746db63b57a3a55bbaab74513db865b9b6
 }

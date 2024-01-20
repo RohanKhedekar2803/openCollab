@@ -1,5 +1,6 @@
 package com.example.openCollab.Repositories;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +16,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	User findByEmail(String email);
 
 	User findByUsername(String username);
+
+	User findByFirstName(String firstName);
+
+	ArrayList<User> findAll();
 
 	
 
